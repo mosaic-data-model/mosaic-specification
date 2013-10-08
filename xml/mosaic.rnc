@@ -1,0 +1,167 @@
+# Relax NG schema for Mosaic XML files
+#
+# This schema verifies many of the constraints on Mosaic data items.
+#
+# Note that some constraints implied by the Mosaic specification
+# cannot be verified using RelaxNG, nor in fact any other XML schema
+# language.
+#
+# Written by Konrad Hinsen
+# License: CC-BY 3.0
+
+
+# There is no Mosaic namespace for now.
+
+default namespace=""
+
+# Mosaic defines a "label" as an ASCII string of at most 32767
+# characters that may contain only a subset of characters.
+
+mosaic_label =
+  xsd:string { maxLength="32767"
+               pattern="[0-9a-zA-Z!#$%&\?@\^_~\+\-\*/=,'\(\)\[\]]*" }
+
+# Atom specifications in bonds are chains of labels concatenated
+# by dots.
+
+mosaic_atom_in_bond =
+  xsd:string { pattern="[0-9a-zA-Z!#$%&\?@\^_~\+\-\*/=,'\(\)\[\]]+(\.[0-9a-zA-Z!#$%&\?@\^_~\+\-\*/=,'\(\)\[\]]+)*" }
+
+# Mosaic unit names are lists of the following type
+
+mosaic_unit =
+  xsd:string { pattern="\w+\-?\d*" }
+
+
+# The Mosaic top-level element has a required "version" attribute, an
+# optional "id" attribute, and can contain any number of data items in
+# any order.
+#
+start =
+  element mosaic {
+    attribute version { xsd:string { pattern="[0-9]+(\.[0-9]+)*" } },
+    attribute id { xsd:ID }?,
+    (universe | configuration | property | label | selection)*
+  }
+
+# A universe element can contain either an explicit description of
+# a universe data item, or a reference to a previously defined
+# universe element.
+
+universe =
+  element universe {
+    universe_description
+    | attribute ref { xsd:IDREF }
+  }
+
+universe_description =
+  attribute id { xsd:ID },
+  attribute cell_shape { "infinite" | "cube" | "cuboid" | "parallelepiped" },
+  attribute convention { mosaic_label },
+  element symmetry_transformations {
+    element transformation {
+      element rotation { list { xsd:float, xsd:float, xsd:float,
+                                xsd:float, xsd:float, xsd:float,
+                                xsd:float, xsd:float, xsd:float } },
+      element translation { list { xsd:float, xsd:float, xsd:float } }
+    }+
+  }?,
+  element molecules {
+    element molecule {
+      attribute count { xsd:positiveInteger },
+      fragment
+    }+
+  }
+
+fragment =
+  element fragment {
+    attribute label { mosaic_label },
+    attribute species { mosaic_label }, 
+    attribute polymer_type { "polypeptide"
+                             | "polyribonucleotide"
+                             | "polydeoxyribonucleotide"
+                             | "polynucleotide"
+                             | "" }?,
+    element fragments { fragment+ }?,
+    element atoms { atom+ }?,
+    element bonds {
+      element bond {
+        attribute atoms { list { mosaic_atom_in_bond, mosaic_atom_in_bond } },
+        attribute order { "single" | "double" | "triple"
+                          | "quadruple" | "aromatic" | "" }
+      }+
+    }?
+  }
+
+atom =
+  element atom {
+    attribute label { mosaic_label },
+    attribute type { "element" | "cgparticle" | "dummy" | "" },
+    attribute name { mosaic_label },
+    attribute nsites { xsd:positiveInteger }?
+  }
+  
+# A configuration element has a required "id" attribute, and
+# contains a "universe" and a "positions" element, plus a
+# "cell_parameters" element if the universe's cell shape
+# requires it.
+
+configuration =
+  element configuration {
+    attribute id { xsd:ID },
+    universe,
+    element cell_parameters {
+      attribute shape { list { xsd:positiveInteger* } },
+      list { xsd:float* }
+    }?,
+    element positions {
+      attribute type { "float32" | "float64" },
+      list { (xsd:float, xsd:float, xsd:float)* }
+    }
+  }
+
+# Properties come in four varieties, each with a distinct element label.
+# The contents are the same for each: required attributes "id", "name",
+# and "units", a "universe" element, and a "data" element.
+
+property =
+  element (atom_property | template_atom_property
+ 	  | site_property | template_site_property) {
+    attribute id { xsd:ID },
+    attribute name { mosaic_label },
+    attribute units { list { mosaic_unit* } },
+    universe,
+    element data {
+      attribute shape { list { xsd:positiveInteger* } },
+      attribute type { "int8" | "int16" | "int32"
+                       | "uint8" | "uint16" | "uint32"
+                       | "float32" | "float64"
+                       | "boolean" },
+      list { xsd:float* }
+    }
+  }
+
+# Labels come in the same four varieties as properties. The contents
+# are the same for each: required attributes "id", "name", and
+# "units", a "universe" element, and a "strings" element.
+
+label =
+  element (atom_label | template_atom_label
+          | site_label | template_site_label) {
+     attribute id { xsd:ID },
+     attribute name { mosaic_label },
+     universe,
+     element strings { list { mosaic_label* } }
+  }
+
+# Selections also come in the same four varieties as properties.
+# The contents are the same for each: required attribute "id",
+# a "universe" element, and an "indices" element.
+
+selection =
+  element (atom_selection | template_atom_selection
+          | site_selection | template_site_selection) {
+     attribute id { xsd:ID },
+     universe,
+     element indices { list { xsd:positiveInteger* } }
+  }
