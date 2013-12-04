@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.9.1',
+        VERSION:     '0.9.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -90,6 +90,9 @@ control characters are not allowed.</dd>
 <dd>An ordered collection of items. Corresponding data structures in
 programming languages are typically called list, vector, or
 array.</dd>
+<dt>set</dt>
+<dd>An unordered collection of items, in which each item can occur
+at most once.</dd>
 <dt>array</dt>
 <dd>An n-dimensional ordered collection whose elements are of
 identical type.</dd>
@@ -133,7 +136,7 @@ naming a convention for atom names, decomposition of standard
 groups (e.g. amino acid residues) into subgroups and atoms, etc.</li>
 </ul>
 <ul class="simple" id="mosaic-universe-symmetry">
-<li>a (possibly empty) list of symmetry transformation. Each symmetry
+<li>a (possibly empty) set of symmetry transformation. Each symmetry
 transformation is defined by a rotation matrix and a translation
 vector. The full system consists of the explicitly represented
 atoms and molecules plus their images obtained by applying all the
@@ -180,7 +183,7 @@ not of any other type, or for polymers of unknown type.</li>
 <li>a (possibly empty) list of atoms</li>
 </ul>
 <ul class="simple" id="mosaic-fragment-bonds">
-<li>a (possibly empty) list of bonds</li>
+<li>a (possibly empty) set of bonds</li>
 </ul>
 </div></blockquote>
 <p id="mosaic-atom">An atom is described by:</p>
@@ -210,8 +213,8 @@ the second letter, if one exists, in lower-case.</li>
 <li>a number of sites field, whose value is a positive integer.</li>
 </ul>
 </div></blockquote>
-<p id="mosaic-bonds">A bond is described by two atom references and a bond order
-specification, whose value is &#8220;&#8221;, &#8220;single&#8221;, &#8220;double&#8221;, &#8220;triple&#8221;,
+<p id="mosaic-bonds">A bond is described by (1) a set of two atom references and (2) a bond
+order specification, whose value is &#8220;&#8221;, &#8220;single&#8221;, &#8220;double&#8221;, &#8220;triple&#8221;,
 &#8220;quadruple&#8221;, or &#8220;aromatic&#8221;.  The empty string is used for bonds of any
 other order, or for bonds of unknown order. Bonds must be defined at
 the level of the smallest possible fragment that includes both atoms
