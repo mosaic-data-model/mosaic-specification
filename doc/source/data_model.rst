@@ -52,6 +52,10 @@ Some definitions used in the following
       programming languages are typically called list, vector, or
       array.
 
+   set
+      An unordered collection of items, in which each item can occur
+      at most once.
+
    array
       An n-dimensional ordered collection whose elements are of
       identical type.
@@ -106,7 +110,7 @@ A Mosaic universe contains:
 
   .. _mosaic-universe-symmetry:
 
-  - a (possibly empty) list of symmetry transformation. Each symmetry
+  - a (possibly empty) set of symmetry transformation. Each symmetry
     transformation is defined by a rotation matrix and a translation
     vector. The full system consists of the explicitly represented
     atoms and molecules plus their images obtained by applying all the
@@ -162,7 +166,7 @@ A fragment contains the following information:
 
   .. _mosaic-fragment-bonds:
 
-  - a (possibly empty) list of bonds
+  - a (possibly empty) set of bonds
 
 
 .. _mosaic-atom:
@@ -200,8 +204,8 @@ An atom is described by:
 
 .. _mosaic-bonds:
 
-A bond is described by two atom references and a bond order
-specification, whose value is "", "single", "double", "triple",
+A bond is described by (1) a set of two atom references and (2) a bond
+order specification, whose value is "", "single", "double", "triple",
 "quadruple", or "aromatic".  The empty string is used for bonds of any
 other order, or for bonds of unknown order. Bonds must be defined at
 the level of the smallest possible fragment that includes both atoms
