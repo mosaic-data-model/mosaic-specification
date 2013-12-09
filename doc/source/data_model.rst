@@ -72,6 +72,22 @@ Some definitions used in the following
       atoms with multi-modal position distributions (as used in
       crystallography), etc.
 
+   fragment
+      A hierarchical structure consisting of atoms, other fragments
+      (subfragments), and bonds. A fragment loosely corresponds to the
+      concept of a functional group or moiety in chemistry, but its
+      definition covers a much wider range of chemical structures: the
+      extreme use cases for fragments in Mosaic are single atoms and
+      whole molecules.
+
+   template
+      The definition of the molecular structure for a species of molecules
+      in a universe. Any fragment can be used as a molecule template.
+      It is important to distinguish between a molecule and a molecule
+      template: every molecule has exactly one template, but a template
+      can describe a large number of molecules. For example, in a box
+      of water molecules, all molecules share a single template.
+
 
 .. index::
    pair: data item; universe
@@ -128,10 +144,7 @@ A Mosaic universe contains:
 
 A Mosaic fragment is not a data item, because it cannot be written to
 a file in isolation. Fragments exist only as part of a universe
-definition. A fragment loosely corresponds to the concept of a
-functional group or moiety in chemistry, but its definition covers a
-much wider range of chemical structures: the extreme use cases for
-fragments in Mosaic are single atoms and whole molecules.
+definition.
 
 A fragment contains the following information:
 
@@ -275,9 +288,9 @@ A property contains:
 
      * site in the universe, if the type field is "site"
 
-     * atom in the fragment templates, if the type field is "template_atom"
+     * atom in the molecule templates, if the type field is "template_atom"
 
-     * site in the fragment templates, if the type field is "template_site"
+     * site in the molecule templates, if the type field is "template_site"
 
   .. _mosaic-property-name:
 
@@ -290,6 +303,12 @@ A property contains:
 The arrays for each atom or site have identical shapes and their
 elements identical types. The type can be int8, int16, int32, int64,
 uint8, uint16, uint32, uint32, uint64, float32, float64, or bool.
+
+Properties of type "atom" or "site" are defined for each atom or site
+in the universe. Properties of type "template_atom" or "template_site"
+are defined for each atom or site in the molecule templates of the
+universe. They are thus identical for the corresponding atoms or sites
+in each molecule sharing the same template.
 
 The value of the units field is a text string in ASCII encoding.  It
 contains a sequence of unit factors separated by a space.  A unit
@@ -418,14 +437,19 @@ A label contains:
 
      * site in the universe, if the type field is "site"
 
-     * atom in the fragment templates, if the type field is "template_atom"
+     * atom in the molecule templates, if the type field is "template_atom"
 
-     * site in the fragment templates, if the type field is "template_site"
+     * site in the molecule templates, if the type field is "template_site"
 
   .. _mosaic-label-name:
 
   - a name field, whose value is a label
 
+Labels of type "atom" or "site" are defined for each atom or site
+in the universe. Labels of type "template_atom" or "template_site"
+are defined for each atom or site in the molecule templates of the
+universe. They are thus identical for the corresponding atoms or sites
+in each molecule sharing the same template.
 
 .. index::
    pair: data item; selection
@@ -455,3 +479,9 @@ The index array is one-dimensional and the type of its elements is one
 of the unsigned integer types: uint8, uint16, uint32, uint32, uint64.
 The indices are stored in monotonously increasing order with no index
 being listed more than once.
+
+Selections of type "atom" or "site" contain indices for atoms or sites
+in the universe. Selections of type "template_atom" or "template_site"
+contain indices for each atom or site in the molecule templates of the
+universe. They are interpreted as a selection of all atoms or sites
+that correspond to the selected template atoms or template sites.
