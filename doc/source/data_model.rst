@@ -312,9 +312,11 @@ in each molecule sharing the same template.
 
 The value of the units field is a text string in ASCII encoding.  It
 contains a sequence of unit factors separated by a space.  A unit
-factor is either a number (an integer or a decimal fraction) or a unit
-symbol optionally followed by a non-zero integer which indicates the
-power to which this factor is taken.  Examples:
+factor is either (a) a number (an integer or a decimal fraction,
+optionally followed by the letter 'e' and an integer indicating a
+power of ten) or (b) a unit symbol optionally followed by a non-zero
+integer which indicates the power to which this factor is taken.
+Examples:
 
   - "nm3" stands for cubic nanometers
 
