@@ -76,6 +76,24 @@ displacement parameters may be given, in order to prevent
 incoherencies in the data.
 
 
+Heterogeneous sequences
+~~~~~~~~~~~~~~~~~~~~~~~
+
+In a heterogeneous sequence, a specific position can be taken by
+different residues in different copies of the molecule. In a PDB
+entry, heteregeneous sequences are marked as such, and contain
+multiple residues with the same residue number, but of a different
+chemical component. All the atoms in these multiple residues have
+occupancies smaller than 1.
+
+In Mosaic, heterogeneous sequences are represented by a single polymer
+fragment. The fragment at a heterogeneous position has no atoms and as
+many subfragments as there are residue variants at this position. Each
+subfragment is one of the residue variants. There are no bonds between
+atoms of different residue variants, but each of them can have bonds
+to the neighboring residue(s).
+
+
 .. index::
    single: NMR structures
 

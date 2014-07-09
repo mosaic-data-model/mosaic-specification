@@ -18,6 +18,7 @@ Conventions:
    :maxdepth: 2
 
    pdb_convention
+   h5md_mosaic_module
 
 * :ref:`genindex`
 

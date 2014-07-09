@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,8 +13,8 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '1.0.0',
+        URL_ROOT:    './',
+        VERSION:     '1.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,6 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Mosaic 1.0 specification" href="index.html" />
+    <link rel="next" title="The H5MD Mosaic module" href="h5md_mosaic_module.html" />
     <link rel="prev" title="Mosaic in HDF5 files" href="hdf5.html" /> 
   </head>
   <body>
@@ -36,6 +35,8 @@
         <div class="rel">
           <a href="hdf5.html" title="Mosaic in HDF5 files"
              accesskey="P">previous</a> |
+          <a href="h5md_mosaic_module.html" title="The H5MD Mosaic module"
+             accesskey="N">next</a> |
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a>
         </div>
@@ -113,6 +114,21 @@ of value <tt class="docutils literal"><span class="pre">[x</span> <span class="p
 <p>If anisotropic displacement parameters are provided, then no isotropic
 displacement parameters may be given, in order to prevent
 incoherencies in the data.</p>
+<div class="section" id="heterogeneous-sequences">
+<h3>Heterogeneous sequences<a class="headerlink" href="#heterogeneous-sequences" title="Permalink to this headline">¶</a></h3>
+<p>In a heterogeneous sequence, a specific position can be taken by
+different residues in different copies of the molecule. In a PDB
+entry, heteregeneous sequences are marked as such, and contain
+multiple residues with the same residue number, but of a different
+chemical component. All the atoms in these multiple residues have
+occupancies smaller than 1.</p>
+<p>In Mosaic, heterogeneous sequences are represented by a single polymer
+fragment. The fragment at a heterogeneous position has no atoms and as
+many subfragments as there are residue variants at this position. Each
+subfragment is one of the residue variants. There are no bonds between
+atoms of different residue variants, but each of them can have bonds
+to the neighboring residue(s).</p>
+</div>
 </div>
 <div class="section" id="nmr-structures">
 <span id="index-2"></span><h2>NMR structures<a class="headerlink" href="#nmr-structures" title="Permalink to this headline">¶</a></h2>
@@ -144,6 +160,7 @@ incoherencies in the data.</p>
 <li class="toctree-l2"><a class="reference internal" href="#nmr-structures">NMR structures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="h5md_mosaic_module.html">The H5MD Mosaic module</a></li>
 </ul>
 
           <h3 style="margin-top: 1.5em;">Search</h3>
@@ -166,6 +183,8 @@ incoherencies in the data.</p>
         <div class="left">
           <a href="hdf5.html" title="Mosaic in HDF5 files"
              >previous</a> |
+          <a href="h5md_mosaic_module.html" title="The H5MD Mosaic module"
+             >next</a> |
           <a href="genindex.html" title="General Index"
              >index</a>
             <br/>
@@ -177,7 +196,7 @@ incoherencies in the data.</p>
           
     <div class="footer">
         &copy; Copyright 2013, The Mosaic Community.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
         </div>
         <div class="clearer"></div>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,8 +13,8 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '1.0.0',
+        URL_ROOT:    './',
+        VERSION:     '1.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -297,9 +295,11 @@ universe. They are thus identical for the corresponding atoms or sites
 in each molecule sharing the same template.</p>
 <p>The value of the units field is a text string in ASCII encoding.  It
 contains a sequence of unit factors separated by a space.  A unit
-factor is either a number (an integer or a decimal fraction) or a unit
-symbol optionally followed by a non-zero integer which indicates the
-power to which this factor is taken.  Examples:</p>
+factor is either (a) a number (an integer or a decimal fraction,
+optionally followed by the letter &#8216;e&#8217; and an integer indicating a
+power of ten) or (b) a unit symbol optionally followed by a non-zero
+integer which indicates the power to which this factor is taken.
+Examples:</p>
 <blockquote>
 <div><ul class="simple">
 <li>&#8220;nm3&#8221; stands for cubic nanometers</li>
@@ -532,6 +532,7 @@ that correspond to the selected template atoms or template sites.</p>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="pdb_convention.html">Mosaic PDB convention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h5md_mosaic_module.html">The H5MD Mosaic module</a></li>
 </ul>
 
           <h3 style="margin-top: 1.5em;">Search</h3>
@@ -567,7 +568,7 @@ that correspond to the selected template atoms or template sites.</p>
           
     <div class="footer">
         &copy; Copyright 2013, The Mosaic Community.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
         </div>
         <div class="clearer"></div>
