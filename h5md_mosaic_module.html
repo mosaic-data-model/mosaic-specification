@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The H5MD Mosaic module &mdash; Mosaic 1.0 specification</title>
+    
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Mosaic 1.0 specification" href="index.html" />
+    <link rel="prev" title="Mosaic PDB convention" href="pdb_convention.html" /> 
+  </head>
+  <body>
+    <div class="header-wrapper">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">Mosaic 1.0 specification</a></div>
+        <div class="rel">
+          <a href="pdb_convention.html" title="Mosaic PDB convention"
+             accesskey="P">previous</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-h5md-mosaic-module">
+<span id="index-0"></span><h1>The H5MD Mosaic module<a class="headerlink" href="#the-h5md-mosaic-module" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://nongnu.org/h5md/index.html">H5MD</a> is a modular file format
+for trajectory files in molecular simulation, based on <a class="reference external" href="http://www.hdfgroup.org/HDF5/">HDF5</a>. It defines how the typically large
+time-dependent datasets in trajectories are stored, but it does not
+define a description for the simulation universe itself because such
+descriptions are very domain specific. The combination of H5MD and
+Mosaic provides a complete specification for self-contained trajectory
+files, i.e. trajectory files that do not require additional information
+for their interpretation.</p>
+<p>The H5MD specification consists of a basic format specification plus
+so-called <em>modules</em> for additional domain-specific specifications.
+The combination of H5MD and Mosaic is thus defined in the following
+by a specification of the &#8220;Mosaic module&#8221; for H5MD.</p>
+<div class="section" id="objective">
+<h2>Objective<a class="headerlink" href="#objective" title="Permalink to this headline">¶</a></h2>
+<p>The Mosaic module provides a way to store the definition of a
+simulation universe and of subsets of the particles using Mosaic data
+items. These data items assign a number to each site of each
+atom. These numbers are the indices of the particle data in the
+trajectory.</p>
+</div>
+<div class="section" id="module-name-and-version">
+<h2>Module name and version<a class="headerlink" href="#module-name-and-version" title="Permalink to this headline">¶</a></h2>
+<p>The name of this module is <tt class="docutils literal"><span class="pre">mosaic</span></tt>. The module version is 0.1.0.</p>
+</div>
+<div class="section" id="mosaic-root-group">
+<h2>Mosaic root group<a class="headerlink" href="#mosaic-root-group" title="Permalink to this headline">¶</a></h2>
+<p>H5MD files applying the Mosaic module contain an additional group
+at the root level, i.e. next to the <tt class="docutils literal"><span class="pre">h5md</span></tt> group. This additional group
+is called <tt class="docutils literal"><span class="pre">mosaic</span></tt> and contains all Mosaic data items related to
+the trajectory.</p>
+<p>The <tt class="docutils literal"><span class="pre">mosaic</span></tt> group contains one obligatory item, the simulation
+universe, in a group called <tt class="docutils literal"><span class="pre">universe</span></tt>. It may not contain more than
+one universe data item. It can contain any number of other Mosaic data
+items, whose names are subject to the same rules as the names of
+particle groups in H5MD.</p>
+<p>Each subgroup of the H5MD particles group must have a corresponding
+Mosaic data item in the <tt class="docutils literal"><span class="pre">mosaic</span></tt> group that has the same name. This
+data item can either be the simulation universe, or a selection data
+item. Each H5MD particle corresponds to a Mosaic site. The site order
+defined by the Mosaic universe or selection thus assigns a site
+to each position in the particles group.</p>
+<p>The <tt class="docutils literal"><span class="pre">box</span></tt> groups in the H5MD trajectory must be compatible with the
+simulation universe: the dimension must be 3, the boundary must be
+[none, none, none] for a universe with &#8220;infinite&#8221; cell shape and
+[periodic, periodic, periodic] for a universe of any other
+currently defined cell shape, and the edges must also be compatible
+with the universe&#8217;s cell shape.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="data_model.html">The Mosaic data model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xml.html">Mosaic XML files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hdf5.html">Mosaic in HDF5 files</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pdb_convention.html">Mosaic PDB convention</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">The H5MD Mosaic module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#objective">Objective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-name-and-version">Module name and version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mosaic-root-group">Mosaic root group</a></li>
+</ul>
+</li>
+</ul>
+
+          <h3 style="margin-top: 1.5em;">Search</h3>
+          <form class="search" action="search.html" method="get">
+            <input type="text" name="q" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </form>
+          <p class="searchtip" style="font-size: 90%">
+            Enter search terms or a module, class or function name.
+          </p>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <a href="pdb_convention.html" title="Mosaic PDB convention"
+             >previous</a> |
+          <a href="genindex.html" title="General Index"
+             >index</a>
+            <br/>
+            <a href="_sources/h5md_mosaic_module.txt"
+               rel="nofollow">Show Source</a>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer">
+        &copy; Copyright 2013, The Mosaic Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
